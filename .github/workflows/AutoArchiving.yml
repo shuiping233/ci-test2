@@ -17,4 +17,4 @@ jobs:
     - name: Run some command
       run: |
         echo "Target workflow triggered!"
-        echo ${{ github.event.client_payload }}
+        echo ${{ toJson(github.event.client_payload) }}
