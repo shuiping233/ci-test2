@@ -15,4 +15,6 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Run some command
-      run: echo "Target workflow triggered!"
+      run: |
+        echo "Target workflow triggered!"
+        echo ${{ github.event.client_payload }}
