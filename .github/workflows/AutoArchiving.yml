@@ -1,4 +1,4 @@
-name: Target Workflow
+name: Auto Archiving Closed issues
 
 on:
   repository_dispatch:
