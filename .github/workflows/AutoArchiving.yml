@@ -1,0 +1,18 @@
+name: Target Workflow
+
+on:
+  repository_dispatch:
+    types:
+      - dispatch_from_all_issues  
+      - dispatch_from_internal_issues  
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Run some command
+      run: echo "Target workflow triggered!"
