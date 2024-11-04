@@ -29,7 +29,7 @@ jobs:
     - name: Run some command
       env:
         CLIENT_PAYLOAD : ${{ toJson(github.event.client_payload) }}
-        ISSUE_REPOSITORY : ${{ steps.determine_type.outputs.dispatch_type }}
+        ACTION_NAME : ${{ github.event.action }}
       run: |
         echo "Target workflow triggered!"
         # echo "${{ toJson(github.event.sender) }}"

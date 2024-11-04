@@ -7,6 +7,7 @@ import io
 from dispatch_schema import ClientPayload
 from log import Log
 from config import Config
+from env import Env
 
 CONFIG_PATH = "./configs/config.json"
 
@@ -52,19 +53,19 @@ class ArchiveDocument():
                       introduced_version: str,
                       archive_version: str
                       ) -> None:
-        
+
         # TODO
         self.__add_line(
             archive_template
             .format(
                 table_id=self.__get_last_table_number(
                     table_separator) + 1,
-                
+
                 issue_type=issue_type,
                 issue_title=issue_title,
-                rjust_space = ((rjust_space_width 
-                               - len(issue_title))
-                               * rjust_character),
+                rjust_space=((rjust_space_width
+                              - len(issue_title))
+                             * rjust_character),
                 issue_repository=issue_repository,
                 issue_id=issue_id,
                 introduced_version=introduced_version,
@@ -80,7 +81,7 @@ class ArchiveDocument():
 
 
 def load_local_env() -> None:
-    if os.environ.get("GITHUB_ACTIONS") != "true":
+    if os.environ.get(Env.GITHUB_ACTIONS) != "true":
         print(Log.non_github_action_env)
         from dotenv import load_dotenv
         load_dotenv()
@@ -90,8 +91,12 @@ def main():
     load_local_env()
     config = Config(CONFIG_PATH)
     client_payload = ClientPayload(
-        issue_repository=os.environ["GITHUB_REPOSITORY"],
-        **json.loads(os.environ["CLIENT_PAYLOAD"])
+        issue_repository=ClientPayload
+        .action_name_to_repository_type(
+            os.environ[Env.ACTION_NAME],
+            config.action_name_map
+        ),
+        **json.loads(os.environ[Env.CLIENT_PAYLOAD])
     )
     archive_document = ArchiveDocument(
         config.archive_document_path

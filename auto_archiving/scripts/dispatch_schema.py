@@ -1,6 +1,7 @@
 from typing import TypedDict
 from dataclasses import dataclass
 
+from exception import ErrorMessage
 
 class DispatchSchema(TypedDict):
 
@@ -8,7 +9,7 @@ class DispatchSchema(TypedDict):
     issue_type: str
     issue_title: str
     issue_state: str
-    introduced_version: str 
+    introduced_version: str
     archive_version: str
 
     # 判断外部和内部issue似乎可以从dispatch测判断
@@ -21,5 +22,16 @@ class ClientPayload():
     issue_repository: str
     issue_title: str
     issue_state: str
-    introduced_version: str 
+    introduced_version: str
     archive_version: str
+
+    @staticmethod
+    def action_name_to_repository_type(
+        action_name: str,
+        action_name_map: dict[str,str]
+    ) -> str:
+        result = action_name_map.get(action_name)
+        if result is None:
+            raise ValueError(ErrorMessage.unknown_action_name)
+        return result
+        

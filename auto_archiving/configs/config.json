@@ -10,5 +10,9 @@
             "add_suffix": "的Bug",
             "remove_keyword": []
         }
+    },
+    "action_name_map": {
+        "dispatch_from_all_issues": "外部Issue",
+        "dispatch_from_internal_issues": "内部Issue"
     }
 }

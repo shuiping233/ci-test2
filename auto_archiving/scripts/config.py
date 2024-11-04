@@ -13,6 +13,7 @@ class ConfigJson(TypedDict):
     table_separator: str
     archive_template: str
     archive_document_path: str
+    action_name_map: dict[str,str]
 
 
 class Config():
@@ -23,6 +24,7 @@ class Config():
         self.archive_template: str
         self.archive_document_path: str
         self.table_separator: str
+        self.action_name_map: dict[str,str]
         self.raw_json: ConfigJson = json.loads(
             Path(config_path).read_text(encoding="utf-8")
         )

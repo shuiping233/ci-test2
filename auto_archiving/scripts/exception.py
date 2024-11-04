@@ -1,26 +1,7 @@
 class ErrorMessage():
     '''自定义异常信息'''
 
-    missing_introduced_version = '''Issue描述中找不到引入版本号，请确保Issue描述格式正确且包含“发现版本号”等版本号关键字。补全必要信息后请再次关闭Issue重新触发归档流程。
-    '''
-    too_many_introduced_version = '''Issue描述中匹配到多个引入版本号，请确保Issue描述格式正确且只包含一个版本号。补全必要信息后请再次关闭Issue重新触发归档流程。
-    匹配到的版本号有：{versions}
-    '''
-
-    missing_archive_version = '''Issue评论中找不到归档版本号关键字，请确保Issue评论中归档关键字格式正确且包含归档版本号。补全必要信息后请再次关闭Issue重新触发归档流程。
-    归档关键字格式有：{keyword}
-    '''
-    too_many_archive_version = '''Issue评论中匹配到多个版本号关键字，请确保Issue评论中归档关键字格式正确且只包含一个格式的归档关键字。补全必要信息后请再次关闭Issue重新触发归档流程。
-    匹配到的版本号有：{versions}
-    '''
-
-    missing_archive_labels = '''Issue标签中找不到归档所需标签，请给Issue打上归档所需标签。补全必要信息后请再次关闭Issue重新触发归档流程。
-    归档所需标签有：{labels}
-    '''
-
-    missing_issue_type = '''Issue标题中找不到Issue关键字，请根据标准Issue格式在标题中补上Issue类型信息。补全必要信息后请再次关闭Issue重新触发归档流程。
-    可匹配的Issue类型关键字有：{issue_type}
-    '''
+    unknown_action_name = "未知的action类型：｛action_name｝，无法找到与之对应的issue仓库类型"
 
 
 class ArchiveBaseError(Exception):
