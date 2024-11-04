@@ -35,5 +35,5 @@ jobs:
         # echo "${{ toJson(github.event.sender) }}"
         echo "${{ toJson(github.event_path) }}"
         echo "${{ toJson(github.event_name) }}"
-        echo "${{ toJson(github.event) }}"
+        echo "${{ toJson(github.event.action) }}"
         echo $CLIENT_PAYLOAD
