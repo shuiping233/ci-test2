@@ -2,6 +2,7 @@ class ErrorMessage():
     '''自定义异常信息'''
 
     unknown_action_name = "未知的action类型：｛action_name｝，无法找到与之对应的issue仓库类型"
+    
 
 
 class ArchiveBaseError(Exception):
