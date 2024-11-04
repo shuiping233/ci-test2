@@ -8,7 +8,7 @@ from dispatch_schema import ClientPayload
 from log import Log
 from config import Config
 
-CONFIG_PATH = "./auto_archiving/config/config.json"
+CONFIG_PATH = "./configs/config.json"
 
 
 class ArchiveDocument():
@@ -90,6 +90,7 @@ def main():
     load_local_env()
     config = Config(CONFIG_PATH)
     client_payload = ClientPayload(
+        issue_repository=os.environ["GITHUB_REPOSITORY"],
         **json.loads(os.environ["CLIENT_PAYLOAD"])
     )
     archive_document = ArchiveDocument(
