@@ -14,9 +14,23 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
+    # - name: Handle dispatch_from_all_issues
+    #   if: ${{ github.event.action.determine_type.outputs.dispatch_type == 'dispatch_from_all_issues' }}
+    #   run: |
+    #     echo "Handling dispatch_from_all_issues"
+    #     # Add your logic here
+    #     ${{ github.event.}}
+
+    # - name: Handle dispatch_from_internal_issues
+    #   if: ${{ github.event.action.determine_type.outputs.dispatch_type == 'dispatch_from_internal_issues' }}
+    #   run: |
+    #     echo "Handling dispatch_from_internal_issues"
+
     - name: Run some command
       env:
         CLIENT_PAYLOAD : ${{ toJson(github.event.client_payload) }}
+        ISSUE_REPOSITORY : ${{ steps.determine_type.outputs.dispatch_type }}
       run: |
         echo "Target workflow triggered!"
+        echo "${{ toJson(github.event.sender) }}"
         echo $CLIENT_PAYLOAD
