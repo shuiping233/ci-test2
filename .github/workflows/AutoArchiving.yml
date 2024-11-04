@@ -32,5 +32,8 @@ jobs:
         ISSUE_REPOSITORY : ${{ steps.determine_type.outputs.dispatch_type }}
       run: |
         echo "Target workflow triggered!"
-        echo "${{ toJson(github.event.sender) }}"
+        # echo "${{ toJson(github.event.sender) }}"
+        echo "${{ toJson(github.event_path) }}"
+        echo "${{ toJson(github.event_name) }}"
+        echo "${{ toJson(github.event) }}"
         echo $CLIENT_PAYLOAD
