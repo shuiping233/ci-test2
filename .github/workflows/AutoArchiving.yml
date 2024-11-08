@@ -6,6 +6,12 @@ on:
       - dispatch_from_all_issues  
       - dispatch_from_internal_issues  
 
+# 这玩意就是控制并发的，流水线运行后会自动加锁
+# 在一个组的流水线任务只能有一个在运行，其他流水线任务会被pedding
+# 文档：https://docs.github.com/zh/actions/writing-workflows/choosing-what-your-workflow-does/control-the-concurrency-of-workflows-and-jobs
+concurrency:
+  group: archiving-group
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,26 +20,27 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    # - name: Handle dispatch_from_all_issues
-    #   if: ${{ github.event.action.determine_type.outputs.dispatch_type == 'dispatch_from_all_issues' }}
-    #   run: |
-    #     echo "Handling dispatch_from_all_issues"
-    #     # Add your logic here
-    #     ${{ github.event.}}
-
-    # - name: Handle dispatch_from_internal_issues
-    #   if: ${{ github.event.action.determine_type.outputs.dispatch_type == 'dispatch_from_internal_issues' }}
-    #   run: |
-    #     echo "Handling dispatch_from_internal_issues"
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.10"
 
     - name: Run some command
       env:
         CLIENT_PAYLOAD : ${{ toJson(github.event.client_payload) }}
         ACTION_NAME : ${{ github.event.action }}
       run: |
-        echo "Target workflow triggered!"
-        # echo "${{ toJson(github.event.sender) }}"
-        echo "${{ toJson(github.event_path) }}"
-        echo "${{ toJson(github.event_name) }}"
-        echo "${{ toJson(github.event.action) }}"
-        echo $CLIENT_PAYLOAD
+        cd ./
+        python ./auto_archving/scripts/main.py -c ./auto_archiving/configs/config.json
+      
+    - name: Set up Git
+      run: |
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "github-actions[bot]"
+
+    - name: Add and commit changes
+      
+      run: |
+        git add ./修改归档.md
+        git commit -m "Closed issue#${{ github.event.client_payload.issue_id}}"
+        git push origin main

@@ -9,6 +9,7 @@ class DispatchSchema(TypedDict):
     issue_type: str
     issue_title: str
     issue_state: str
+    '''值只可能为 open 或 closed'''
     introduced_version: str
     archive_version: str
 
@@ -21,5 +22,6 @@ class ClientPayload():
     issue_type: str
     issue_title: str
     issue_state: str
+    '''值只可能为 open 或 closed'''
     introduced_version: str
     archive_version: str
