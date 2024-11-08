@@ -30,8 +30,9 @@ jobs:
         CLIENT_PAYLOAD : ${{ toJson(github.event.client_payload) }}
         ACTION_NAME : ${{ github.event.action }}
       run: |
+        ls
         cd ./
-        python ./auto_archving/scripts/main.py -c ./auto_archiving/configs/config.json
+        python ./auto_archiving/scripts/main.py -c ./auto_archiving/configs/config.json
       
     - name: Set up Git
       run: |
