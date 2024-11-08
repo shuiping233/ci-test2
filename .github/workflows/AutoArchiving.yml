@@ -41,5 +41,4 @@ jobs:
         git add ./修改归档.md
         git commit -m "Closed issue#${{ github.event.client_payload.issue_id}}"
         git push origin main
-      run: |
         
